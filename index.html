@@ -14,19 +14,27 @@
   --primary:#c87461;
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);width:100%;overflow-x:hidden;
   font:17px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,"Noto Sans",sans-serif}
 img{max-width:100%;display:block;height:auto}
 a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
-.container{max-width:1140px;margin:0 auto;padding:0 18px}
-section{padding:20px 0}
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+@media(min-width:640px){.container{padding:0 20px}}
+@media(min-width:768px){.container{padding:0 24px}}
+@media(min-width:1024px){.container{padding:0 32px}}
+main{display:flex;flex-direction:column;width:100%;min-height:100vh}
+section{width:100%;display:block;clear:both;flex-shrink:0;position:relative}
 h1{font-size:clamp(30px,4.5vw,52px);line-height:1.1;margin:0 0 10px}
 h2{font-size:clamp(22px,3.2vw,34px);margin:0 0 12px}
 .lead{font-size:clamp(17px,2.2vw,20px);color:var(--muted)}
-.card{background:var(--surface);border:1px solid var(--ring);border-radius:16px;padding:20px}
-.btn{display:inline-block;background:var(--brand);color:#fff;border:none;padding:14px 18px;border-radius:12px;cursor:pointer;font-weight:600}
-.btn:hover{background:var(--brand-2)}
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:16px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.05);transition:transform 0.2s ease,box-shadow 0.2s ease;min-height:fit-content}
+@media(min-width:640px){.card{padding:24px}}
+@media(min-width:768px){.card{padding:28px}}
+@media(min-width:1024px){.card{padding:32px}}
+.card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.1)}
+.btn{display:inline-block;background:var(--brand);color:#fff;border:none;padding:16px 24px;border-radius:12px;cursor:pointer;font-weight:600;font-size:16px;transition:all 0.2s ease;text-align:center;min-width:120px}
+.btn:hover{background:var(--brand-2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(200,116,97,0.3)}
 .note{font-size:13px;color:var(--muted)}
 
 /* FAQ Styling */
@@ -168,26 +176,94 @@ header{position:sticky;top:0;z-index:30;background:rgba(255,248,244,.92);backdro
 }
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,248,244,.9),rgba(255,248,244,.5),rgba(255,248,244,.25));}
 .hero .inner{position:relative;z-index:1}
-.hero .grid{display:grid;gap:28px}
-@media(min-width:980px){.hero .grid{grid-template-columns:1.05fr .95fr}}
+/* Reset and Base Layout - Zorgt ervoor dat alles netjes onder elkaar komt */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  width: 100%;
+  display: block;
+  clear: both;
+  flex-shrink: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  width: 100%;
+}
+
+
+
+/* Hero Section */
+.hero{position:relative;background:linear-gradient(135deg,#fff8f4 0%,#f9f1eb 100%);padding:80px 0;width:100%}
+.hero-content{text-align:center;max-width:800px;margin:0 auto}
+.hero-buttons{margin-top:32px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+@media(min-width:768px){.hero{padding:100px 0}}
+@media(min-width:1024px){.hero{padding:120px 0}}
+
+/* Direct Aanmelden Section */
+.aanmelden-section{padding:80px 0;background:#fff;width:100%}
+.section-header{text-align:center;margin-bottom:48px}
+.section-header h2{font-size:2.5rem;color:var(--brand);margin-bottom:16px}
+.section-description{font-size:1.2rem;color:var(--muted);max-width:600px;margin:0 auto}
+.form-container{max-width:800px;margin:0 auto}
+.form-grid{display:grid;gap:24px}
+.form-row{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:640px){.form-row{grid-template-columns:1fr 1fr}}
+
+/* Diensten Section */
+.diensten-section{padding:80px 0;background:#f8f9fa;width:100%}
+.diensten-grid{display:grid;gap:24px;grid-template-columns:1fr;margin-top:48px}
+@media(min-width:640px){.diensten-grid{grid-template-columns:repeat(2,1fr);gap:28px}}
+@media(min-width:1024px){.diensten-grid{gap:32px}}
+@media(min-width:1200px){.diensten-grid{gap:36px}}
+
+/* Button Styling */
+.btn.secondary{background:transparent;color:var(--brand);border:2px solid var(--brand)}
+.btn.secondary:hover{background:var(--brand);color:#fff}
 .pill{display:inline-block;background:#fff;border:1px solid var(--ring);padding:6px 10px;border-radius:999px;font-size:12px;color:var(--muted)}
 
-.cards{display:grid;gap:16px}
-@media(min-width:900px){.cards{grid-template-columns:repeat(4,1fr)}}
-.card h3{margin:0 0 6px;font-size:18px}
+.cards{display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:640px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:768px){.cards{grid-template-columns:repeat(2,1fr);gap:24px}}
+@media(min-width:1024px){.cards{grid-template-columns:repeat(3,1fr);gap:28px}}
+@media(min-width:1200px){.cards{grid-template-columns:repeat(4,1fr);gap:32px}}
+.card h3{margin:0 0 12px;font-size:20px;color:var(--brand);font-weight:600}
 
-.grid-2{display:grid;gap:28px}
-@media(min-width:980px){.grid-2{grid-template-columns:1.1fr .9fr}}
+.grid-2{display:grid;gap:28px;grid-template-columns:1fr}
+@media(min-width:640px){.grid-2{grid-template-columns:1fr;gap:32px}}
+@media(min-width:768px){.grid-2{grid-template-columns:1fr;gap:36px}}
+@media(min-width:1024px){.grid-2{grid-template-columns:1.1fr .9fr;gap:40px}}
+@media(min-width:1200px){.grid-2{grid-template-columns:1.2fr .8fr;gap:44px}}
 
-form{display:grid;gap:14px}
+form{display:grid;gap:16px;max-width:100%;width:100%}
 fieldset{border:1px solid var(--ring);border-radius:14px;padding:14px;margin:0;background:#fff}
 legend{padding:0 8px;font-weight:700}
-.row{display:grid;gap:12px}
-@media(min-width:720px){.row-2{grid-template-columns:1fr 1fr}}
-label{display:grid;gap:6px;font-size:15px}
+.row{display:grid;gap:16px;grid-template-columns:1fr}
+.row-2{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:640px){.row-2{grid-template-columns:1fr;gap:20px}}
+@media(min-width:768px){.row-2{grid-template-columns:1fr 1fr;gap:24px}}
+@media(min-width:1024px){.row-2{grid-template-columns:1fr 1fr;gap:28px}}
+label{display:grid;gap:8px;font-size:15px;font-weight:500}
 .fl{position:relative}
-.fl input,.fl select,.fl textarea{width:100%;padding:16px 12px 14px;border:1px solid var(--ring);border-radius:10px;background:#fff;font:inherit}
-.fl input:focus,.fl select:focus,.fl textarea:focus{outline:3px solid #f2d4cc;border-color:var(--brand)}
+.fl input,.fl select,.fl textarea{width:100%;padding:18px 16px 16px;border:1px solid var(--ring);border-radius:12px;background:#fff;font:inherit;transition:border-color 0.2s ease,box-shadow 0.2s ease}
+.fl input:focus,.fl select:focus,.fl textarea:focus{outline:3px solid #f2d4cc;border-color:var(--brand);box-shadow:0 0 0 3px rgba(200,116,97,0.1)}
 .fl span{position:absolute;left:12px;top:12px;color:#8a817b;font-size:13px;transition:all .15s ease}
 .fl input:not(:placeholder-shown)+span,.fl input:focus+span,
 .fl textarea:not(:placeholder-shown)+span,.fl textarea:focus+span{top:-9px;background:#fff;padding:0 6px;border-radius:8px;color:#7b6f69;font-size:12px}
@@ -198,11 +274,11 @@ input.error,select.error,textarea.error{border-color:var(--err)}
 
 .cert-strip{background:#fff;border-top:1px solid var(--ring);border-bottom:1px solid var(--ring);padding:4px 0}
 .certs{display:grid;gap:18px;align-items:center}
-@media(min-width:760px){.certs{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:768px){.certs{grid-template-columns:repeat(3,1fr)}}
 .certs img{width:100%;height:auto;object-fit:contain;background:#fff;padding:8px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
 
 .reviews{display:grid;gap:14px}
-@media(min-width:900px){.reviews{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:768px){.reviews{grid-template-columns:repeat(3,1fr)}}
 blockquote{margin:0;padding:16px;border-left:4px solid var(--brand);background:#fff7f2;border-radius:8px}
 
 footer{border-top:1px solid var(--ring);padding:24px 0;color:var(--muted);font-size:14px;background:#fff}
@@ -714,20 +790,26 @@ header {
 </div>
 </header>
 <main id="home">
+<!-- Hero Section -->
 <section class="hero">
-<div class="container inner">
-<div class="grid">
-<div class="grid-2">
-<div>
+<div class="container">
+<div class="hero-content">
 <span class="pill">Persoonlijke kraamzorg aan huis</span>
-<h1>Welkom bij Mihri’s Kraamzorg</h1>
+<h1>Welkom bij Mihri's Kraamzorg</h1>
 <p class="lead">Zorg met liefde, aandacht en vertrouwen voor jou en je baby.</p>
 <p class="lead">We staan klaar met warme, deskundige begeleiding voor een veilige en ontspannen start van het ouderschap.</p>
-<p><a class="btn" href="#neem-contact-op">Contact</a></p>
+<p><a class="btn" href="#direct-aanmelden">Direct Aanmelden</a> <a class="btn secondary" href="#neem-contact-op">Contact</a></p>
 </div>
-<div class="card" id="direct-aanmelden">
-<h2 style="margin:0 0 8px">Direct aanmelden</h2>
-<p class="note" style="margin-top:0">We nemen binnen 1 werkdag contact met je op.</p>
+</div>
+</section>
+
+<!-- Direct Aanmelden Section -->
+<section id="direct-aanmelden" class="aanmelden-section">
+<div class="container">
+<div class="aanmelden-content">
+<h2>Direct aanmelden</h2>
+<p class="note">We nemen binnen 1 werkdag contact met je op.</p>
+<div class="form-wrapper">
 <form action="https://formspree.io/f/xpzgwqjz" id="signup" method="POST" novalidate="">
 <input aria-hidden="true" name="_honey" style="display:none" tabindex="-1" type="text"/>
 <input name="_subject" type="hidden" value="Nieuwe aanmelding via website"/>
@@ -760,19 +842,28 @@ header {
 <input name="plaats" placeholder=" "/>
 <span>Woonplaats</span>
 </label>
-</div><div class="row row-2"><label class="fl"><input name="bsn" placeholder=" "/><span>BSN-nummer</span></label><label class="fl"><input name="polisnummer" placeholder=" "/><span>Polisnummer</span></label></div>
+</div>
+<div class="row row-2">
+<label class="fl">
+<input name="bsn" placeholder=" "/>
+<span>BSN-nummer</span>
+</label>
+<label class="fl">
+<input name="polisnummer" placeholder=" "/>
+<span>Polisnummer</span>
+</label>
+</div>
 <label class="fl">
 <textarea name="bericht" placeholder=" " rows="3"></textarea>
 <span>Toelichting (geen medische details)</span>
 </label>
 <label class="note">
 <input name="consent" type="checkbox" required/> <span data-required="true">Ik ga akkoord dat mijn gegevens worden gebruikt om contact met mij op te nemen over kraamzorg.</span>
-              </label>
+</label>
 <div aria-live="polite" class="msg" id="form-msg"></div>
 <button class="btn" type="submit">Versturen</button>
-
-<input name="incomplete_submission" type="hidden" value="false"/></form>
-</div>
+<input name="incomplete_submission" type="hidden" value="false"/>
+</form>
 </div>
 </div>
 </div>
@@ -788,11 +879,14 @@ header {
 </div>
 </section>
 
-<section id="diensten" class="animate-on-scroll">
+<!-- Mijn Diensten Section -->
+<section id="diensten" class="diensten-section animate-on-scroll">
 <div class="container">
+<div class="section-header">
 <h2>Mijn Diensten</h2>
-<div class="grid-2">
-<div class="cards">
+<p class="section-intro">Persoonlijke kraamzorg afgestemd op jouw behoeften en wensen.</p>
+</div>
+<div class="diensten-grid">
 <div class="card">
 <h3>Kraamzorg aan huis</h3>
 <p class="note">Persoonlijke zorg op maat, afgestemd op jouw gezin en behoeften.</p>
@@ -811,8 +905,6 @@ header {
 <li>Bespreking van voorkeuren</li>
 </ul>
 </div>
-</div>
-<div class="cards">
 <div class="card">
 <h3>Ondersteuning bij voeding</h3>
 <p class="note">Professionele begeleiding bij (borst)voeding en ritme.</p>
