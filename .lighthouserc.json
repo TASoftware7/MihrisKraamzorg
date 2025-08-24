@@ -2,7 +2,7 @@
   "ci": {
     "collect": {
       "url": [
-        "http://localhost:3000/mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.html",
+        "http://localhost:3000/index.html",
         "http://localhost:3000/privacy-policy.html"
       ],
       "startServerCommand": "python3 -m http.server 3000",

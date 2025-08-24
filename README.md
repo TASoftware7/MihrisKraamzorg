@@ -26,7 +26,7 @@ MihrisKraamzorg/
 │   ├── workflows/
 │   │   └── ci-cd.yml          # CI/CD pipeline
 │   └── ISSUE_TEMPLATE/        # Issue templates
-├── mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.html
+├── index.html                  # Hoofdpagina website
 ├── privacy-policy.html         # Privacy policy pagina
 ├── .lighthouserc.json         # Lighthouse CI configuratie
 └── README.md                  # Deze documentatie
@@ -109,7 +109,7 @@ cd MihrisKraamzorg
 python3 -m http.server 3000
 
 # Open in browser
-open http://localhost:3000/mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.html
+open http://localhost:3000/index.html
 ```
 
 ### Development Tools

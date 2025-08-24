@@ -32,18 +32,18 @@ jobs:
           
       - name: Validate HTML
         run: |
-          html-validate mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.html
+          html-validate index.html
           html-validate privacy-policy.html
           
       - name: Check for broken links
         run: |
           npm install -g broken-link-checker
-          blc mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.html -ro
+          blc index.html -ro
           
       - name: Accessibility check
         run: |
           npm install -g pa11y
-          pa11y mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.html
+          pa11y index.html
           pa11y privacy-policy.html
 
   # Security & Dependencies
@@ -113,7 +113,7 @@ jobs:
           
       - name: Minify HTML files
         run: |
-          html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.html -o mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.min.html
+          html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true index.html -o index.min.html
           html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true privacy-policy.html -o privacy-policy.min.html
           
       - name: Create deployment package
@@ -153,12 +153,12 @@ jobs:
           
       - name: Minify and optimize HTML files
         run: |
-          html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.html -o mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.min.html
+          html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true index.html -o index.min.html
           html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true privacy-policy.html -o privacy-policy.min.html
           
       - name: Generate critical CSS
         run: |
-          critical mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.min.html --inline --base dist/ --target mihris-kraamzorg-layout-pro-always-send-welcome-fixed-icons-ig-clean.critical.html
+          critical index.min.html --inline --base dist/ --target index.critical.html
           
       - name: Create production deployment package
         run: |
