@@ -684,6 +684,29 @@ html{scroll-behavior:smooth}
   transform: scale(1.05);
 }
 
+/* Baby Handen en Voeten Achtergrond */
+.baby-hands-feet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 300px;
+  background: 
+    radial-gradient(ellipse 80px 60px at 30% 40%, rgba(255, 255, 255, 0.8) 0%, transparent 70%),
+    radial-gradient(ellipse 60px 50px at 70% 60%, rgba(255, 255, 255, 0.8) 0%, transparent 70%),
+    radial-gradient(ellipse 40px 30px at 50% 30%, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.4;
+  filter: blur(3px);
+  animation: gentle-float 6s ease-in-out infinite;
+}
+
+@keyframes gentle-float {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.05); }
+}
+
 /* Header Animaties */
 header {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -820,7 +843,7 @@ header {
 <!-- Hero Section -->
 <section class="hero">
 <div class="hero-background">
-  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI4MDAiIHZpZXdCb3g9IjAgMCAxMjAwIDgwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iODAwIiBmaWxsPSIjRkZGRkZGIi8+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjMwMCIgcj0iMTAwIiBmaWxsPSIjRkZGRkZGIi8+CjxjaXJjbGUgY3g9IjkwMCIgY3k9IjUwMCIgcj0iODAiIGZpbGw9IiNGRkZGRkYiLz4KPC9zdmc+" alt="Baby handen en voeten" class="hero-bg-image">
+  <div class="baby-hands-feet"></div>
 </div>
 <div class="container">
 <div class="hero-content">
