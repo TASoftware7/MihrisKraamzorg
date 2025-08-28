@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedankt voor je aanmelding - Mihri's Kraamzorg</title>
+    <style>
+        :root {
+            --bg: #fff8f4;
+            --surface: #ffffff;
+            --ink: #2f2926;
+            --muted: #6f6661;
+            --ring: #efd9d0;
+            --brand: #c87461;
+            --brand-2: #a65f50;
+            --ok: #1b9e6f;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--ink);
+            width: 100%;
+            font: 17px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, "Noto Sans", sans-serif;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .success-card {
+            background: var(--surface);
+            border: 2px solid var(--ok);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        
+        .success-icon {
+            font-size: 64px;
+            color: var(--ok);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: clamp(24px, 4vw, 36px);
+            color: var(--ok);
+            margin: 0 0 20px;
+        }
+        
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0 0 20px;
+            color: var(--muted);
+        }
+        
+        .highlight {
+            background: var(--ring);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid var(--brand);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--brand);
+            color: #fff;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background: var(--brand-2);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(200,116,97,0.3);
+        }
+        
+        .contact-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--ring);
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding: 20px 16px;
+            }
+            
+            .success-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-card">
+            <div class="success-icon">✅</div>
+            <h1>Bedankt voor je aanmelding!</h1>
+            <p>Je aanmelding voor kraamzorg is succesvol verzonden naar <strong>mihriskraamzorg@hotmail.com</strong>.</p>
+            
+            <div class="highlight">
+                <p><strong>📧 Wat gebeurt er nu?</strong></p>
+                <p>We nemen binnen <strong>1 werkdag</strong> contact met je op om je aanmelding te bespreken en een afspraak in te plannen voor het gratis intakegesprek.</p>
+            </div>
+            
+            <div class="contact-info">
+                <p><strong>📞 Direct contact nodig?</strong></p>
+                <p>Bel ons op: <strong>06-12345678</strong></p>
+                <p>Of stuur een email naar: <strong>mihriskraamzorg@hotmail.com</strong></p>
+            </div>
+            
+            <a href="index.html" class="btn">Terug naar de website</a>
+        </div>
+    </div>
+    
+    <script>
+        // Auto redirect after 10 seconds
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 10000);
+    </script>
+</body>
+</html>
