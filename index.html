@@ -813,7 +813,15 @@ header {
     transform: translateY(-2px) scale(1.05);
   }
 }
-</style></head>
+</style>
+
+<!-- EmailJS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  // Initialize EmailJS - Vervang met je eigen public key
+  emailjs.init("user_1234567890abcdef");
+</script>
+</head>
 <body>
 <div class="scroll-indicator">
 <div class="scroll-progress" id="scroll-progress"></div>
@@ -851,7 +859,7 @@ header {
 <h2>Direct aanmelden</h2>
 <p class="note">We nemen binnen 1 werkdag contact met je op.</p>
 <div class="form-wrapper">
-<form action="https://formspree.io/f/xpzgwqjz" id="signup" method="POST" novalidate>
+<form action="send-email.php" id="signup" method="POST" novalidate>
 <input aria-hidden="true" name="_honey" class="hidden-input" tabindex="-1" type="text">
 <input name="_subject" type="hidden" value="Nieuwe aanmelding via website">
 <div class="row row-2">
@@ -1215,29 +1223,59 @@ form.addEventListener('submit', async (e) => {
   submitBtn.disabled = true;
   
   try {
-    // Submit form data
-    const formData = new FormData(form);
-    const response = await fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-    
-    if (response.ok) {
+    // Try EmailJS first (primary method)
+    const emailData = {
+      to_email: 'mihriskraamzorg@hotmail.com',
+      from_name: get('naam').value,
+      from_email: get('email').value,
+      phone: get('telefoon').value,
+      due_date: get('due_date').value,
+      zorgverzekeraar: get('zorgverzekeraar').value || 'Niet opgegeven',
+      plaats: get('plaats').value || 'Niet opgegeven',
+      bsn: get('bsn').value || 'Niet opgegeven',
+      polisnummer: get('polisnummer').value || 'Niet opgegeven',
+      bericht: get('bericht').value || 'Geen toelichting opgegeven'
+    };
+
+    // Try EmailJS first
+    try {
+      await emailjs.send('service_1234567', 'template_1234567', emailData);
       showMessage('Bedankt! Je aanmelding is succesvol verzonden. We nemen binnen 1 werkdag contact met je op.', 'success');
       form.reset();
       // Reset border colors
       form.querySelectorAll('input, textarea').forEach(el => {
         el.style.borderColor = '';
       });
-    } else {
-      throw new Error('Form submission failed');
+      return; // Success, exit function
+    } catch (emailjsError) {
+      console.warn('EmailJS failed, trying PHP fallback:', emailjsError);
+      
+      // Fallback to PHP service
+      const formData = new FormData(form);
+      const response = await fetch('send-email.php', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        showMessage('Bedankt! Je aanmelding is succesvol verzonden. We nemen binnen 1 werkdag contact met je op.', 'success');
+        form.reset();
+        // Reset border colors
+        form.querySelectorAll('input, textarea').forEach(el => {
+          el.style.borderColor = '';
+        });
+      } else {
+        throw new Error('Both email services failed');
+      }
     }
   } catch (error) {
-    console.error('Form submission error:', error);
-    showMessage('Er is een fout opgetreden bij het verzenden. Probeer het opnieuw of neem telefonisch contact op.', 'error');
+    console.error('All email methods failed:', error);
+    // Final fallback: mailto link
+    const mailtoLink = createMailtoLink();
+    showMessage(`Er is een technische fout opgetreden. Klik <a href="${mailtoLink}" target="_blank" style="color: var(--brand); text-decoration: underline;">hier</a> om direct een email te versturen.`, 'error');
   } finally {
     // Reset button state
     submitBtn.textContent = originalText;
@@ -1247,14 +1285,43 @@ form.addEventListener('submit', async (e) => {
 
 // Show message function
 function showMessage(message, type) {
-  formMsg.textContent = message;
+  formMsg.innerHTML = message; // Changed to innerHTML to support links
   formMsg.className = `msg ${type}`;
   formMsg.style.display = 'block';
   
-  // Auto-hide after 5 seconds
+  // Auto-hide after 8 seconds for error messages with links
+  const hideDelay = type === 'error' ? 8000 : 5000;
   setTimeout(() => {
     formMsg.style.display = 'none';
-  }, 5000);
+  }, hideDelay);
+}
+
+// Create mailto link as final fallback
+function createMailtoLink() {
+  const get = (n) => form.querySelector(`[name="${n}"]`);
+  
+  const subject = encodeURIComponent('Aanmelding Kraamzorg - ' + get('naam').value);
+  const body = encodeURIComponent(
+    `Beste Mihri,
+
+Ik wil me aanmelden voor kraamzorg.
+
+Mijn gegevens:
+- Naam: ${get('naam').value}
+- Email: ${get('email').value}
+- Telefoon: ${get('telefoon').value}
+- Uitgerekende datum: ${get('due_date').value}
+- Zorgverzekeraar: ${get('zorgverzekeraar').value || 'Niet opgegeven'}
+- Woonplaats: ${get('plaats').value || 'Niet opgegeven'}
+- BSN: ${get('bsn').value || 'Niet opgegeven'}
+- Polisnummer: ${get('polisnummer').value || 'Niet opgegeven'}
+- Toelichting: ${get('bericht').value || 'Geen toelichting opgegeven'}
+
+Met vriendelijke groet,
+${get('naam').value}`
+  );
+  
+  return `mailto:mihriskraamzorg@hotmail.com?subject=${subject}&body=${body}`;
 }
 
 // Real-time validation
